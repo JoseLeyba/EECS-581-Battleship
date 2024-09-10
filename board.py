@@ -2,8 +2,8 @@
 class Board:
     def __init__(self):
         self.ships = []  # holds the ship objects placed on the board 
-        self.ship_board = []  # records the ship locations on the board
-        self.shot_board = []  # records the opponents shots at the board
+        self.ship_board = [[0] * 10] * 10  # records the ship locations on the board; initialized to 0
+        self.shot_board = [[None] * 10] * 10  # records the opponents shots at the board; initialized to None
         self.coordinate_map = {  # maps the coordinates in string form to an index
             'A1': (0, 0), 'A2': (1, 0), 'A3': (2, 0), 'A4': (3, 0), 'A5': (4, 0),
             'A6': (5, 0), 'A7': (6, 0), 'A8': (7, 0), 'A9': (8, 0), 'A10': (9, 0),
