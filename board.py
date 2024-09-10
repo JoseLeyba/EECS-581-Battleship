@@ -45,7 +45,8 @@ class Board:
         # Add coordinates to ship
         ship.addCoordinates(start, end)
 
-        return True # returns true if valid coordinates given
+        # Return true if valid coordinates given
+        return True
 
     def validateAndGetPlacement(self, ship, start, end):  # checks if a ship can be placed at given coordinates
         startLetter = start[:1]
