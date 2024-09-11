@@ -91,7 +91,45 @@ class Board:
         return coordinates
 
     def fireShot(self, coordinate):  # fires an opponents shot on board; returns true if valid shot
-        pass
+        # Check if coordinate is out of bounds
+        if (coordinate not in self.coordinate_map):
+            return False
+
+        # Get coordinates
+        xyCoordinates = self.coordinate_map[coordinate]
+
+        # Checks if shot has already been fired on coordinate
+        if (self.shot_board[xyCoordinates[0]][xyCoordinates[1]] != None):
+            return False
+
+        # Record if ship is hit
+        hitShip = None
+
+        # Check if ship was hit and sunk
+        for ship in self.ships:
+            for shipCoordinate in ship.coordinates:
+                if shipCoordinate == coordinate:
+                    hitShip = ship
+                    hitShip.addHit(coordinate)
+
+        # Updates shotboard with correct character and print message if miss, hit, or sunk
+        if (hitShip == None):
+            self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "O"
+
+            print("Shot has been missed")
+        elif (not hitShip.isSunk()):
+            for shipCoordinate in hitShip.coordinates:
+                shipXYCoordinates = self.coordinate_map[shipCoordinate]
+                self.shot_board[shipXYCoordinates[0]][shipXYCoordinates[1]] = "#"
+
+            print("Ship has been sunk!")
+        else:
+            self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "X"
+
+            print("Ship has been hit!")
+        
+        # Return true if shot successfully fire
+        return True
 
     def gameOver(self):  # returns true if every ship has sunk 
         pass
