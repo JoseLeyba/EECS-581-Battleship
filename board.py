@@ -102,7 +102,7 @@ class Board:
         if (self.shot_board[xyCoordinates[0]][xyCoordinates[1]] != None):
             return False
 
-        # Record if ship is hit
+        # Record ship that was hit
         hitShip = None
 
         # Check if ship was hit and sunk
