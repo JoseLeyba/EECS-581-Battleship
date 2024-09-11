@@ -2,8 +2,8 @@
 class Board:
     def __init__(self):
         self.ships = []  # holds the ship objects placed on the board 
-        self.ship_board = [[0] * 10] * 10  # records the ship locations on the board; initialized to 0
-        self.shot_board = [[None] * 10] * 10  # records the opponents shots at the board; initialized to None
+        self.ship_board = [[0] * 10 for _ in range(10)]  # records the ship locations on the board; initialized to 0
+        self.shot_board = [[None] * 10 for _ in range(10)]  # records the opponents shots at the board; initialized to None
         self.coordinate_map = {  # maps the coordinates in string form to an index
             'A1': (0, 0), 'A2': (1, 0), 'A3': (2, 0), 'A4': (3, 0), 'A5': (4, 0),
             'A6': (5, 0), 'A7': (6, 0), 'A8': (7, 0), 'A9': (8, 0), 'A10': (9, 0),
@@ -26,6 +26,14 @@ class Board:
             'J1': (0, 9), 'J2': (1, 9), 'J3': (2, 9), 'J4': (3, 9), 'J5': (4, 9),
             'J6': (5, 9), 'J7': (6, 9), 'J8': (7, 9), 'J9': (8, 9), 'J10': (9, 9),
         }
+        self.key = [
+            'Key:',
+            '~ = water',
+            'O = miss',
+            'X = hit',
+            '# = sunk',
+            '1-5 = ships'
+        ]
 
     def placeShip(self, ship, start, end):  # takes a ship object and attempts to place on board
         pass  # returns true if valid coordinates given, false otherwise
@@ -40,7 +48,54 @@ class Board:
         pass
 
     def showBoard(self):  # shows the player's ships and opponent's fire marks
-        pass
+        # retrieve the amount of ships remaining
+        ships_remaining = sum([0 if ship.isSunk() else 1 for ship in self.ships])
+
+        display_board = [  # combine the ship board and shot board
+            [  # uses shot if exists for a spot; otherwise uses ship board
+                self.shot_board[i][j] if self.shot_board[i][j] is not None else self.ship_board[i][j] 
+                for j in range(len(self.ship_board[0]))
+            ]
+            for i in range(len(self.ship_board))
+        ]
+
+        display_board = [  # format the board to be displayed
+            ['~' if char == 0 else char for char in row]  # replace empty spots with water
+            for row in display_board
+        ]
+
+        print("     A B C D E F G H I J\n")  # print the column headers
+
+        for row in range(0, len(display_board)):  
+            rowstring = f'{str(row+1).rjust(2)}   '  # display the row number
+            rowstring += f'{" ".join(map(str, display_board[row]))}'  # display the row contents
+            if row < len(self.key): 
+                rowstring += f'   {self.key[row]}'  # display the character keys
+            elif row == 7:
+                rowstring += "   Ships remaining:"  # display ships remaining header
+            elif row == 8:
+                rowstring += f'   {ships_remaining}/{len(self.ships)}'  # display the amount of ships remaining
+            print(rowstring)  # print the row
+
 
     def showBoardForOpponent(self):  # shows the hits/misses to opponent    
-        pass
+        # retrieve the amount of ships remaining
+        ships_remaining = sum([0 if ship.isSunk() else 1 for ship in self.ships])
+
+        display_board = [  # format the board to be displayed
+            ['~' if char == None else char for char in row]  # replace empty spots with water
+            for row in self.shot_board
+        ]
+
+        print("     A B C D E F G H I J\n")  # print the column headers
+
+        for row in range(0, len(display_board)):  # iterate throught rows in the board  
+            rowstring = f'{str(row+1).rjust(2)}   '  # display the row number
+            rowstring += f'{" ".join(map(str, display_board[row]))}'  # display the row contents
+            if row < len(self.key) - 1:   
+                rowstring += f'   {self.key[row]}'  # display the character keys
+            elif row == 6:
+                rowstring += "   Ships remaining:"  # display ships remaining header
+            elif row == 7:
+                rowstring += f'   {ships_remaining}/{len(self.ships)}'  # display the amount of ships remaining
+            print(rowstring)  # print the row
