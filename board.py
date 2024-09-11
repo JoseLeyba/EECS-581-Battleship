@@ -131,7 +131,7 @@ class Board:
 
             print("Ship has been sunk!")
         
-        # Return true if shot successfully fire
+        # Return true if shot successfully fired
         return True
 
     def gameOver(self):  # returns true if every ship has sunk 
