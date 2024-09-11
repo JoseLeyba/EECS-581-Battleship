@@ -36,10 +36,59 @@ class Board:
         ]
 
     def placeShip(self, ship, start, end):  # takes a ship object and attempts to place on board
-        pass  # returns true if valid coordinates given, false otherwise
+        # Get coordinates
+        coordinates = self.validateAndGetPlacement(ship, start, end)
 
-    def validatePlacement(self, ship, start, end):  # checks if a ship can be placed at given coordinates
-        pass
+        # Check if ship can be placed where specified
+        if not coordinates:
+            return False # return false if ship can not be placed on coordinates
+
+        # Update ship board
+        for coordinate in coordinates:
+            xyCoordinate = self.coordinate_map[coordinate]
+            self.ship_board[xyCoordinate[0]][xyCoordinate[1]] = ship.length
+
+        # Add coordinates to ship
+        ship.addCoordinates(start, end)
+
+        # Return true if valid coordinates given
+        return True
+
+    def validateAndGetPlacement(self, ship, start, end):  # checks if a ship can be placed at given coordinates
+        startLetter = start[:1]
+        startNumber = int(start[1:])
+        endLetter = end[:1]
+        endNumber = int(end[1:])
+
+        # Check if either coordinate is out of bounds
+        if (start not in self.coordinate_map or end not in self.coordinate_map):
+            return False
+
+        # Stores the selected coordinates
+        coordinates = []
+
+        # Check if coordinates represent a row or a column
+        if (startNumber==endNumber): # is a row
+            # Get row coordinates including and inbetween start and end coordinates
+            coordinates = [k for k, v in self.coordinate_map.items() if (int(k[1:])==startNumber and startLetter <= k[:1] <= endLetter)]
+        elif (startLetter==endLetter): # is a column
+            # Get column coordinates including and inbetween start and end coordinates
+            coordinates = [k for k, v in self.coordinate_map.items() if (k.startswith(startLetter) and startNumber <= int(k[1:]) <= endNumber)]
+        else:
+            return False # Invalid placement
+
+        # Check if ship length matches inputted coordinates
+        if (len(coordinates) != ship.length):
+            return False
+
+        # Check if ship already in ship_board coordinates
+        for ship in self.ships:
+            for coordinate in coordinates:
+                if (coordinate in ship.coordinates):
+                    return False
+
+        # Return valid placement
+        return coordinates
 
     def fireShot(self, coordinate):  # fires an opponents shot on board; returns true if valid shot
         pass
