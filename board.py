@@ -114,16 +114,19 @@ class Board:
 
         # Updates shotboard with correct character and print message if miss, hit, or sunk
         if (hitShip == None):
+            # Update shot coordinate to miss
             self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "O"
 
             print("Shot has been missed")
         elif (not hitShip.isSunk()):
+            # Update every position in ship to sunk
             for shipCoordinate in hitShip.coordinates:
                 shipXYCoordinates = self.coordinate_map[shipCoordinate]
                 self.shot_board[shipXYCoordinates[0]][shipXYCoordinates[1]] = "#"
 
             print("Ship has been sunk!")
         else:
+            # Update shot coordinate to hit
             self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "X"
 
             print("Ship has been hit!")
