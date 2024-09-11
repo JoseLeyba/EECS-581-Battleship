@@ -105,7 +105,7 @@ class Board:
         # Record ship that was hit
         hitShip = None
 
-        # Check if ship was hit and sunk
+        # Update hitShip and call addHit on ship if ship was hit
         for ship in self.ships:
             for shipCoordinate in ship.coordinates:
                 if shipCoordinate == coordinate:
