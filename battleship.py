@@ -31,12 +31,15 @@ class Battleship:
     def fireShot(self, board):  # prompts user for coordinate and fires shot at opponent's board
         while True:
             # asks the player for a coordinate to fire a shot
+            print()
             coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
 
             # fire the shot and check if it's successful
             if board.fireShot(coordinate):
                 # show upadted board after the successful shot
-                board.showBoard()
+                print()
+                board.showBoardForOpponent()
+                print()
                 break
             else:
                 # if shot is invalid or has already been fired, ask for a new coordinate
