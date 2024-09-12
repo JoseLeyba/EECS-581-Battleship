@@ -16,10 +16,10 @@ class Battleship:
 
             while True:
                 # asks user for start and end coordinates to place the ship
-                start = input(f"Enter the starting coordinate for your {ship_size}-length ship (e.g., A1): ").upper()
-                end = input(f"Enter the ending coordinate for your {ship_size}-length ship (e.g., A{ship_size}): ").upper()
+                start = input(f"Enter the starting coordinate for your {ship_size}-length ship (e.g. A1): ").upper()
+                end = input(f"Enter the ending coordinate for your {ship_size}-length ship (e.g. A{ship_size}): ").upper()
 
-                # try and see if the ship can be placeed on the board
+                # try and see if the ship can be placed on the board
                 if board.placeShip(ship, start, end):
                     board.ships.append(ship)  # add the ship to the board's ship list if placed successfully
                     board.showBoard()  # show the board after each successful placement
@@ -28,7 +28,7 @@ class Battleship:
                     # if unsuccessful, ask for new coordinates
                     print("Invalid placement. Please try again.")
 
-    def fireShot(self, board):  # prompts user for coordinate and fires shot at opponents board
+    def fireShot(self, board):  # prompts user for coordinate and fires shot at opponent's board
         while True:
             # asks the player for a coordinate to fire a shot
             coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
