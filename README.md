@@ -8,6 +8,6 @@ EECS 581 Project 1
 - Gavin Kirwan [@gkirwan](https://www.github.com/gkirwan43)
 - Ethan Wheat [@ethanwheat](https://github.com/ethanwheat)
 - Tanner Barcus [@tbarcus11](https://github.com/tbarcus11)
-- Mario Sumanasekara [@MarioS531] (https://github.com/MarioS531)
+- Mario Sumanasekara [@MarioS531](https://github.com/MarioS531)
 - Add your name and github link here
 
