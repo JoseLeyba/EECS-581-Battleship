@@ -55,14 +55,14 @@ class Board:
         return True
 
     def validateAndGetPlacement(self, ship, start, end):  # checks if a ship can be placed at given coordinates
+        # Check if either coordinate is out of bounds
+        if (start not in self.coordinate_map or end not in self.coordinate_map):
+            return False
+
         startLetter = start[:1]
         startNumber = int(start[1:])
         endLetter = end[:1]
         endNumber = int(end[1:])
-
-        # Check if either coordinate is out of bounds
-        if (start not in self.coordinate_map or end not in self.coordinate_map):
-            return False
 
         # Stores the selected coordinates
         coordinates = []
@@ -70,10 +70,10 @@ class Board:
         # Check if coordinates represent a row or a column
         if (startNumber==endNumber): # is a row
             # Get row coordinates including and inbetween start and end coordinates
-            coordinates = [k for k, v in self.coordinate_map.items() if (int(k[1:])==startNumber and startLetter <= k[:1] <= endLetter)]
+            coordinates = [k for k, v in self.coordinate_map.items() if (int(k[1:])==startNumber and (startLetter <= k[:1] <= endLetter or endLetter <= k[:1] <= startLetter))]
         elif (startLetter==endLetter): # is a column
             # Get column coordinates including and inbetween start and end coordinates
-            coordinates = [k for k, v in self.coordinate_map.items() if (k.startswith(startLetter) and startNumber <= int(k[1:]) <= endNumber)]
+            coordinates = [k for k, v in self.coordinate_map.items() if (k.startswith(startLetter) and (startNumber <= int(k[1:]) <= endNumber or endNumber <= int(k[1:]) <= startNumber))]
         else:
             return False # Invalid placement
 
