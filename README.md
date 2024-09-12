@@ -7,5 +7,6 @@ EECS 581 Project 1
 ## Authors
 - Gavin Kirwan [@gkirwan](https://www.github.com/gkirwan43)
 - Ethan Wheat [@ethanwheat](https://github.com/ethanwheat)
+- Tanner Barcus [@tbarcus11](https://github.com/tbarcus11)
 - Add your name and github link here
 

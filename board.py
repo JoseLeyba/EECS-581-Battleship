@@ -135,7 +135,10 @@ class Board:
         return True
 
     def gameOver(self):  # returns true if every ship has sunk 
-        pass
+        for ship in self.ships:
+            if not ship.isSunk():
+                return False
+        return True
 
     def showBoard(self):  # shows the player's ships and opponent's fire marks
         # retrieve the amount of ships remaining
