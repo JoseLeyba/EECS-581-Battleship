@@ -49,7 +49,7 @@ class Board:
             self.ship_board[xyCoordinate[0]][xyCoordinate[1]] = ship.length
 
         # Add coordinates to ship
-        ship.addCoordinates(start, end)
+        ship.addCoordinates(coordinates)
 
         # Return true if valid coordinates given
         return True
