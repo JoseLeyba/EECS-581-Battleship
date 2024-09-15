@@ -6,6 +6,8 @@ All:
 Ethan Wheat:
   Monday 09/09 - 2 hrs (draft requirements and code design) 
   Tuesday 09/10 - 30 mins (implement showBoard and showOpponentBoard methods)
+Mario Sumanasekara
+  Wednesday 09/11 - 30 mins (implement populateBoard and fireShot methods in battleship.py)
 
 Total: 
   - (add up all here)
