@@ -10,5 +10,8 @@ Ethan Wheat:
 Mario Sumanasekara
   Wednesday 09/11 - 30 mins (implement populateBoard and fireShot methods in battleship.py)
 
+Tanner Barcus
+  Wednesday 09/11 - 45 mins (implement playGame and gameOver methods in battleship.py and board.py)
+
 Total: 
   - (add up all here)

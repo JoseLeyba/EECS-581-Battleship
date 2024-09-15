@@ -47,60 +47,71 @@ class Battleship:
 
     def playGame(self):  # handles turn taking and prompting users for input
 
+        # Get player names
         self.p1_name = input("Enter Player 1's name: ")
         self.p2_name = input("Enter Player 2's name: ")
 
+        # Get number of ships for each player
         self.num_ships = int(input("Enter the number of ships for each player: "))
 
+        # Player 1 places their ships
         print(f"{self.p1_name}, it's time to place your ships!")
         self.populateBoard(self.p1_board)
-        print("\n" * 100)
+        print("\n" * 100)  # Clear screen
         
+        # Player 2 places their ships
         print(f"{self.p2_name}, it's time to place your ships!")
         self.populateBoard(self.p2_board)
-        print("\n" * 100)
+        print("\n" * 100)  # Clear screen
 
-        current_player = 1
+        current_player = 1  # Start with Player 1
 
+        # Main game loop
         while True:
-
             if current_player == 1:
                 print(f"{self.p1_name}'s turn!")
 
+                # Display boards for Player 1
                 print("Your board:", '\n')
                 self.p1_board.showBoard()
                 print("\n" + "Opponent's board:", '\n')
                 self.p2_board.showBoardForOpponent()
                 
+                # Player 1 takes a shot on player 2's board
                 self.fireShot(self.p2_board)
 
+                # Check if Player 1 has won
                 if self.p2_board.gameOver():
                     print(f"{self.p1_name} wins!")
                     break
 
-                current_player = 2
+                current_player = 2  # Switch to Player 2
 
             else:
                 print(f"{self.p2_name}'s turn!", '\n')
 
+                # Display boards for Player 2
                 print("Your board:", '\n')
                 self.p2_board.showBoard()
                 print("\n" + "Opponent's board:", '\n')
                 self.p1_board.showBoardForOpponent()
 
+                # Player 2 takes a shot on player 1's board
                 self.fireShot(self.p1_board)
 
+                # Check if Player 2 has won
                 if self.p1_board.gameOver():
                     print(f"{self.p2_name} wins!")
                     break
 
-                current_player = 1
+                current_player = 1  # Switch back to Player 1
             
+            # End of turn actions
             print()
             input("Press Enter to finish your turn...")
-            print("\n" * 100)
+            print("\n" * 100)  # Clear screen
             input("Press Enter to start your turn...")
-            print("\n" * 100)
+            print("\n" * 100)  # Clear screen
 
 
     def run(self):  # called by driver script to run the game
