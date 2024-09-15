@@ -5,8 +5,8 @@ class Ship:
         self.coordinates = []  # list of coordinates; ex: ['A1', 'A2', 'A3']
         self.hits = [False] * length  # a bool for each coordinate representing a hit
 
-    def addCoordinates(self, coordintates):  # populate self.coordinates based on start and end positions
-        self.coordinates = coordintates
+    def addCoordinates(self, coordinates):  # populate self.coordinates based on start and end positions
+        self.coordinates = coordinates
 
     def addHit(self, coordinate):  # called by the board if a ship is hit; should update bool in hits list
         for i in self.coordinates:

@@ -1,0 +1,115 @@
+run the program with: 'python3 driver.py'
+
+Ship Class:
+	Member variables:
+    length - an integer 1-5 representing the length of the ship
+    coordinates - a list of the coordinates in string format (ex: [‘A1’, ‘A2’, ‘A3’])
+    hits - a list of bool values that correspond to each coordinate (initialized to false)
+      For example: with ship coordinates [‘A1’, ‘A2’, ‘A3’], if only A2 has been hit then hits = [False, True, False]
+	
+	Methods
+    addCoordinates(self, coordinates):
+      Assumes valid list of coordinates passed
+      Example coordinates: [‘A1’, ‘B1’,  ‘C1’]
+      populate the self.coordinates list with all the positions of the ship
+      So for the example above, it update self.coordinates to [‘A1’, ‘B1’, ‘C1’]	
+      Can assume start and end have been validated
+
+    addHit(self, coordinate):
+      Example coordinate: ‘A1’
+      Called by the board class if the ship has been hit
+      update bool in hits list
+
+    isSunk(self):
+      Returns true if all coordinates of a ship have been hit
+
+Board Class:
+  Member variables:
+    ships - a list that holds ship class objects
+    ship_board - a matrix that records ship locations on the board
+      Matrix initialized to 10x10 with 0 in each spot
+      Ships are represented by numbers corresponding to their length
+      Example of 5x5 grid with 3 ships placed: 
+        [ 0, 3, 3, 3, 0 ]
+        [ 0, 0, 0, 0, 0 ]
+        [ 0, 0, 0, 2, 0 ]
+        [ 0, 1, 0, 2, 0 ]
+        [ 0, 0, 0, 0, 0 ]
+    shot_board - a matrix that records opponents shots on the board
+      Matrix initialized to 10x10 with None in each spot
+      Misses are represented with O, hits with X, sunk ships with #
+      Example (based on board above): 
+        [ o, x, n, n, n ]
+        [ n, o, n, n, n ]
+        [ n, n, n, #, n ]
+        [ n, n, n, #, n ]
+        [ n, n, n, n, n ]
+
+  Methods:
+    placeShip(self, ship, start, end):
+      Example start and end coordinates: ‘A1’, ‘A3’
+      validate these coordinates using validatePlacement()
+        Return false if invalid
+      Needs to translate these coordinates and place a ship on ship_board
+      call addCoordinates(coordinates) method of ship object after validation
+      Return true if success
+
+    validateAndGetPlacement(self, ship, start, end):
+      check several things:
+        Valid start and end positions given (not out of bounds, ex: K11)
+        Is a straight line either up or down
+        Matches ship.length
+        No ship in any of the positions on self.ship_board
+      Return list of coordinates if valid, false otherwise
+
+    fireShot(self, coordinate):
+      Example coordinate: ‘A1’
+      Validate coordinate and check if a shot has been fired on that spot already
+        Return false if invalid or already shot
+      If hit, a few things happen:
+        Update coordinate on shot board to X
+        Ships are represented by their length in ship_board, so for example if you hit the number 2 on ship_board, you can access that ship object in self.ships[2-1].
+        Add hit to ship with .addHit(coordinate) 
+        check if ship is sunk with .isSunk()
+          If ship is sunk, update its spots on the shot_board to #’s instead of X’s
+        Print hit/sunk messages
+      If miss:
+        Update coordinate on shot board to O
+        Print miss message
+      Return true 
+
+    gameOver(self):
+      Checks if every ship in the self.ship has been sunk, return true if so.
+    showBoard(self):
+      Prints the board view for the player
+      Combines the ship_board and shot_board
+    showBoardForOpponent(self):
+      Shows the player’s board to an opponent; only prints the hit_board 
+
+
+Battleship Class:
+	Member Variables:
+    p1_board - an instance of the board class that represents player 1
+    p2_board - an instance of the board class that represents player 2
+    p1_name, p2_name - names of the players
+    num_ships - the number of ships each player will have
+
+	Methods:
+    populateBoard(self, board):
+      Populate a board based on the num_ships
+      Create a ship instance
+      Prompt user for coordinate input then call board.placeShip(ship, start, end)
+        If placeShip() returns false then the coordinates were invalid and prompt user again
+        Repeat until all ships are placed successfully
+        call board.showBoard() after each placement so player has visualization
+
+    fireShot(self, board):
+      Prompts a user for coordinate inputs then call board.fireShot(coordinate)
+        If board.fireShot() returns false, then the coordinates were invalid or have already been shot at, so prompt the user for another coordinate and try again until successful 
+        call board.showBoardForOpponent() after success to show shot
+
+    playGame(self):
+      Essentially the main function
+      initialize number of ships and player names, handle turns, and call the populateBoard and fireShot methods
+      After firing a shot at a player, call .gameOver() on p1_board or p2_board to test if that player was beaten; if so end the game a print win message
+      include a screen between players turns when handing off computer so they can’t see each other’s boards

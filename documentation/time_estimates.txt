@@ -1,0 +1,8 @@
+Team 4 time estimates for Project 1:
+
+Requirements - 1 hr
+Code Design - 1 hr
+Code Development - 5 hr
+Testing/Debug - 1 hr
+
+Total estimate: 8 hours

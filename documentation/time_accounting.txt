@@ -1,0 +1,11 @@
+Team 4 time accounting for Project 1
+
+All:
+  Thursday 09/12 - 15 mins (GTA team meeting)
+
+Ethan Wheat:
+  Monday 09/09 - 2 hrs (draft requirements and code design) 
+  Tuesday 09/10 - 30 mins (implement showBoard and showOpponentBoard methods)
+
+Total: 
+  - (add up all here)
