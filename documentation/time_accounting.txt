@@ -13,5 +13,8 @@ Mario Sumanasekara
 Tanner Barcus
   Wednesday 09/11 - 45 mins (implement playGame and gameOver methods in battleship.py and board.py)
 
+Edgar Mendez
+  Tuesday 09/10 - 45 mins (implement all methods to ship class)
+
 Total: 
   - (add up all here)
