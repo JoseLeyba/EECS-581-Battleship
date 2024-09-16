@@ -17,7 +17,7 @@ Edgar Mendez
   Tuesday 09/10 - 45 mins (implement all methods to ship class)
 
 Gavin Kirwan
-  Wednesday 09/11 - 1 hour (implemented placeShip and validateAndGetPlacement methods in board.py)
-  Thursday 09/12 30 mins (implemented fireShot method in board.py)
+  Wednesday 09/11 - 1 hour (implement placeShip and validateAndGetPlacement methods in board.py)
+  Thursday 09/12 30 mins (implement fireShot method in board.py)
 
 Total: 6 hours and 15 mins
