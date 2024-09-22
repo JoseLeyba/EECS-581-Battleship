@@ -51,8 +51,16 @@ class Battleship:
         self.p1_name = input("Enter Player 1's name: ")
         self.p2_name = input("Enter Player 2's name: ")
 
-        # Get number of ships for each player
-        self.num_ships = int(input("Enter the number of ships for each player: "))
+        while True:
+            i = input("Enter the number of ships for each player: ")
+            if i.isdigit() == True:
+                i = int(i)
+                if i >= 1 and i <= 5:
+                    # Get number of ships for each player
+                    self.num_ships = i
+                    break
+            else:
+                print("Invalid Input")
 
         # Player 1 places their ships
         print(f"{self.p1_name}, it's time to place your ships!")
