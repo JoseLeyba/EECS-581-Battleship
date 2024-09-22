@@ -28,7 +28,7 @@ class Battleship:
                     # if unsuccessful, ask for new coordinates
                     print("Invalid placement. Please try again.")
 
-    def fireShot(self, board):  # prompts user for coordinate and fires shot at opponent's board
+    def getShot(self, board):  # prompts user for coordinate and fires shot at opponent's board
         while True:
             # asks the player for a coordinate to fire a shot
             print()
@@ -86,7 +86,7 @@ class Battleship:
                 self.p2_board.showBoardForOpponent()
                 
                 # Player 1 takes a shot on player 2's board
-                self.fireShot(self.p2_board)
+                self.getShot(self.p2_board)
 
                 # Check if Player 1 has won
                 if self.p2_board.gameOver():
@@ -105,7 +105,7 @@ class Battleship:
                 self.p1_board.showBoardForOpponent()
 
                 # Player 2 takes a shot on player 1's board
-                self.fireShot(self.p1_board)
+                self.getShot(self.p1_board)
 
                 # Check if Player 2 has won
                 if self.p1_board.gameOver():
