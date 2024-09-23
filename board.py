@@ -133,6 +133,43 @@ class Board:
         
         # Return true if shot successfully fired
         return True
+    def fireShotAI(self,coordinate):
+        # Check if coordinate is out of bounds
+        if (coordinate not in self.coordinate_map):
+            return False
+
+        # Get coordinates
+        xyCoordinates = self.coordinate_map[coordinate]
+
+        # Checks if shot has already been fired on coordinate
+        if (self.shot_board[xyCoordinates[0]][xyCoordinates[1]] != None):
+            return False
+
+        # Record ship that was hit
+        hitShip = None
+
+        # Update hitShip and call addHit on ship if ship was hit
+        for ship in self.ships:
+            for shipCoordinate in ship.coordinates:
+                if shipCoordinate == coordinate:
+                    hitShip = ship
+                    hitShip.addHit(coordinate)
+
+        # Updates shot_board with correct character
+        if (hitShip == None):
+            # Update coordinate to miss on shot_board
+            self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "O"
+        elif (not hitShip.isSunk()):
+            # Update coordinate to hit on shot_board 
+            self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "X"
+        else:
+            # Update every coordinate in ship on shot_board to sunk
+            for shipCoordinate in hitShip.coordinates:
+                shipXYCoordinates = self.coordinate_map[shipCoordinate]
+                self.shot_board[shipXYCoordinates[0]][shipXYCoordinates[1]] = "#"
+        
+        # Return true if shot successfully fired
+        return True
 
     def gameOver(self):  # returns true if every ship has sunk 
         for ship in self.ships:
