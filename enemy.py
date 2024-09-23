@@ -38,4 +38,4 @@ class Enemy:
     def placeShips(self):
         pass
     def gameOver(self):
-        pass
+        return self.AIboard.gameOver()
