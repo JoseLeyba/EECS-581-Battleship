@@ -4,11 +4,18 @@ from board import Board
 from ship import Ship
 
 class Enemy:
-    def __init__(self, ships):
-        self.ships = ships          # number of enemy ships
+    def __init__(self,numofships):
+        self.numofships = numofships            #number of ships
+        self.AIboard = Board()
 
     def easy(self):
-        pass
+        while True:
+            letter = random.choice('ABCDEFGHIJ')
+            number = random.randint(1,10)
+            coordinates = f"{letter}{number}"
+            isValid = self.shoot(coordinates)
+            if isValid == True:
+                break
     
     def medium(self):
         pass
@@ -16,8 +23,8 @@ class Enemy:
     def hard(self):
         pass
 
-    def shoot(self):
-        pass
+    def shoot(self,coordinates):
+        return self.AIboard.fireShotAI(coordinates)
 
     def placeShips(self):
         pass
