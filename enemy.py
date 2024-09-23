@@ -20,6 +20,7 @@ class Enemy:
     def medium(self):
         pass
 
+    # hard difficulty
     def hard(self):
         pass
 
