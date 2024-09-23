@@ -1,5 +1,6 @@
 from board import Board 
 from ship import Ship 
+from enemy import Enemy
 
 class Battleship:
     def __init__(self):
