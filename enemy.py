@@ -5,28 +5,36 @@ class Enemy:
     def __init__(self,numofships):
         self.numofships = numofships
         self.AIboard = Board()
-        self.theSpecial = 1
+        self.ammo = 1
 
     def easy(self):
-        special = random.randint(1,10)
-        if special != 5:
-            while True:
-                letter = random.choice('ABCDEFGHIJ')
-                number = random.randint(1,10)
-                coordinates = f"{letter}{number}"
-                isValid = self.shoot(coordinates)
-                if isValid == True:
-                    break
-        else:
-            if self.theSpecial > 0:
-                while True:
-                    letter = random.choice('ABCDEFGHIJ')
-                    number = random.randint(1,10)
-                    coordinates = f"{letter}{number}"
-                    isValid = self.shoot(coordinates)
-                    if isValid == True:
-                        break
-            #finish the special shot
+        while True:
+            letter = random.choice('ABCDEFGHIJ')
+            number = random.randint(1,10)
+            coordinates = f"{letter}{number}"
+            isValid = self.shoot(coordinates)
+            if isValid == True:
+                break
+        if isSpecialShot == 5:
+            if self.ammo > 0:
+                letters = ['A','B','C','D','E','F','G','H','I','J']
+                for i in letters:
+                    if letters[i] == letter:
+                        letterIndex = i
+                downNumber = number + 1
+                upNumber = number - 1
+
+                rightLetter = letters[letterIndex + 1]
+                leftLetter = letters[letterIndex - 1]
+
+                coordinatesDown = f"{letter}{downNumber}"
+                coordinatesUp = f"{letter}{upNumber}"
+                coordinatesLeft = f"{leftLetter}{number}"
+                coordinatesRight = f"{rightLetter}{number}"
+                self.shoot(coordinatesDown)
+                self.shoot(coordinatesUp)
+                self.shoot(coordinatesLeft)
+                self.shoot(coordinatesRight)t
     def medium(self):
         pass
 
