@@ -47,7 +47,8 @@ class Enemy:
         alphabet = "ABCDEFGHIJ"
         letters = []
         numbers = []
-        
+
+        # for loop that reads the board for all ships
         for row in pBoard:
             for item in row:
                 x += 1
