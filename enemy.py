@@ -40,8 +40,30 @@ class Enemy:
         pass
 
     def hard(self):
-        pass
-
+        pBoard = Battleship.p1_board.ship_board        # gets the players board
+        x = 0
+        y = 0
+        i = 0
+        alphabet = "ABCDEFGHIJ"
+        letters = []
+        numbers = []
+        
+        for row in pBoard:
+            for item in row:
+                x += 1
+                if item != 0:
+                    letters.append(alphabet[y])
+                    numbers.append(str(x))
+            y += 1
+            x = 0
+        
+        while True:
+            coordinates = f"{letters[i]}{numbers[i]}"
+            isValid = self.shoot(coordinates)
+            i += 1
+            if isValid == True:
+                break
+    
     def shoot(self,coordinates):
         return self.AIboard.fireShotAI(coordinates)
     def placeShips(self):
