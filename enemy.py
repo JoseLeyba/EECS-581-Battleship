@@ -1,6 +1,5 @@
 import random
 from board import Board
-from battleship import Battleship
 
 class Enemy:
     def __init__(self,numofships):
@@ -66,6 +65,7 @@ class Enemy:
         self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
         
     def hard(self):
+        from battleship import Battleship
         pBoard = Battleship.p1_board.ship_board        # gets the players board
         x = 0
         y = 0
