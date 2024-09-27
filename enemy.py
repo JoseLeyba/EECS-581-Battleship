@@ -39,7 +39,7 @@ class Enemy:
                 self.shoot(coordinatesDown)
                 self.shoot(coordinatesUp)
                 self.shoot(coordinatesLeft)
-                self.shoot(coordinatesRight)t
+                self.shoot(coordinatesRight)
 
 
     def medium(self):
