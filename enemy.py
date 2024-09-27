@@ -7,7 +7,11 @@ class Enemy:
         self.numofships = numofships
         self.AIboard = Board()
         self.ammo = 1
-
+        #These are all needed for medium, possible moves is a list of all available moves, hits are places where it has hit before, and potential targets will store the adjacent cells after a hit as a queue
+        self.possible_moves = [f"{row}{col}" for row in "ABCDEFGHIJ" for col in range(1, 11)]
+        self.hits = [] 
+        self.potential_targets = [] 
+        
     def easy(self):
         while True:
             letter = random.choice('ABCDEFGHIJ')
@@ -36,9 +40,31 @@ class Enemy:
                 self.shoot(coordinatesUp)
                 self.shoot(coordinatesLeft)
                 self.shoot(coordinatesRight)t
-    def medium(self):
-        pass
 
+
+    def medium(self):
+        if self.potential_targets:
+            move = self.potential_targets.pop(0)
+        else:
+            move = random.choice(self.possible_moves)
+            self.possible_moves.remove(move)
+        isValid = self.shoot(move)
+        if isValid:
+            self.processHit(move)  
+
+    def processHit(self, coordinate):
+        row, col = coordinate[0], int(coordinate[1:])
+        adjacent = [
+            f"{chr(ord(row) - 1)}{col}" if row > 'A' else None, 
+            f"{chr(ord(row) + 1)}{col}" if row < 'J' else None,  
+            f"{row}{col - 1}" if col > 1 else None,              
+            f"{row}{col + 1}" if col < 10 else None             
+        ]
+
+        valid_adjacent = [coord for coord in adjacent if coord and coord in self.possible_moves]
+        self.potential_targets.extend(valid_adjacent)
+        self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
+        
     def hard(self):
         pBoard = Battleship.p1_board.ship_board        # gets the players board
         x = 0
