@@ -94,6 +94,55 @@ class Enemy:
     def shoot(self,coordinates):
         return self.AIboard.fireShotAI(coordinates)
     def placeShips(self):
+        shipLength = self.numofships
+        directions = ["up", "down","left","right"]
+        letters = ['A','B','C','D','E','F','G','H','I','J']
+        
+        while shipLength != 0:
+            placed = False
+            ship = Ship(shipLength)
+            while not placed:
+                direction = random.choice(directions)
+                startCol = random.choice(letters)
+                startRow = random.randint(1,10)
+                length = shipLength - 1
+
+                if direction == "up":
+                    endCol = startCol
+                    endRow = startRow - length
+                    if endRow < 1:
+                        continue
+
+                elif direction == "down":
+                    endCol = startCol
+                    endRow = startRow + length
+                    if endRow > 10:
+                        continue
+
+                elif direction == "right":
+                    letterIndex = letters.index(startCol)
+                    if letterIndex + length >= len(letters):
+                        continue
+                    endCol = letters[letterIndex + length]
+                    endRow = startRow
+
+                elif direction == "left":
+                    letterIndex = letters.index(startCol)
+                    if letterIndex - length < 0:
+                        continue
+                    endCol = letters[letterIndex - length]
+                    endRow = startRow
+                    
+                start = f"{startCol}{startRow}"
+                end = f"{endCol}{endRow}"
+                isValid = self.AIboard.placeShip(ship, start, end)
+                if isValid:
+                    self.AIboard.ships.append(ship)
+                    placed = True
+            shipLength -= 1
+        print(self.AIboard.ships)
+        print(self.AIboard.ship_board)
+        print(self.AIboard.shot_board)
         pass
     def gameOver(self):
         return self.AIboard.gameOver()
