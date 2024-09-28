@@ -1,1 +1,7 @@
-
+Alexandra Stratton
+Monday 16th: 15 minutes - GTA Meeting
+Sunday 22nd: 1 hr - Group Meeting Planing Out the project
+Monday 23rd: 15 minutes - GTA Meeting
+Monday 23rd: 1 hr - Coding Enemy.py, Battleship.py, Board.py
+Tuesday 24th - 40 minutes - Fixing issues throughout code
+Saturday 28th - 
