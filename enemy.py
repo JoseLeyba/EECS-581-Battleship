@@ -1,5 +1,6 @@
 import random
 from board import Board
+from ship import Ship
 
 class Enemy:
     def __init__(self,numofships):
