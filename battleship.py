@@ -107,7 +107,6 @@ class Battleship:
             print("\n" * 100)  # Clear screen
         else:
             self.AI = Enemy(self.num_ships, self.p1_board)
-            self.AI.placeShips()
         current_player = 1  # Start with Player 1
         if self.choice == 1:
             # Main game loop
@@ -165,10 +164,10 @@ class Battleship:
                     print("Your board:", '\n')
                     self.p1_board.showBoard()
                     print("\n" + "Opponent's board:", '\n')
-                    self.p2_board.showBoardForOpponent()
+                    self.AI.AIboard.showBoardForOpponent()
                     
                     # Player 1 takes a shot on player 2's board
-                    self.fireShot(self.p2_board)
+                    self.fireShot(self.AI.AIboard)
 
                     # Check if Player 1 has won
                     if self.AI.gameOver():
