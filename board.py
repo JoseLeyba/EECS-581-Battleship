@@ -133,20 +133,10 @@ class Board:
         
         # Return true if shot successfully fired
         return True
-    def fireShotAI(self,coordinate):
+    def fireShotAI(self, coordinate):
+        # Check if coordinate is out of bounds
         if (coordinate not in self.coordinate_map):
             return False
-        if (hitShip == None):
-            self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "O"
-            return False 
-        else:
-            if not hitShip.isSunk():
-                self.shot_board[xyCoordinates[0]][xyCoordinates[1]] = "X"
-            else:
-                for shipCoordinate in hitShip.coordinates:
-                    shipXYCoordinates = self.coordinate_map[shipCoordinate]
-                    self.shot_board[shipXYCoordinates[0]][shipXYCoordinates[1]] = "#"
-            return True  
 
         # Get coordinates
         xyCoordinates = self.coordinate_map[coordinate]
@@ -177,7 +167,7 @@ class Board:
             for shipCoordinate in hitShip.coordinates:
                 shipXYCoordinates = self.coordinate_map[shipCoordinate]
                 self.shot_board[shipXYCoordinates[0]][shipXYCoordinates[1]] = "#"
-        
+
         # Return true if shot successfully fired
         return True
 
