@@ -72,7 +72,7 @@ class Enemy:
         self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
         
     def hard(self):
-        pBoard = self.player_board
+        pBoard = self.player_board.ship_board
         x = 0
         y = 0
         i = 0
