@@ -5,3 +5,11 @@ Monday 23rd: 15 minutes - GTA Meeting
 Monday 23rd: 1 hr - Coding Enemy.py, Battleship.py, Board.py
 Tuesday 24th - 40 minutes - Fixing issues throughout code
 Saturday 28th - 
+
+Eli Gabriel
+Monday 16: 15 min -- GTA Meeting
+Sunday 22: 1 hr -- Group Planning Meeting
+Monday 23: 15 min -- GTA Meeting
+Monday 23: 1 hr -- Coding Enemy.py and Battleship.py
+Thursday 26: 1 hr -- Coding Enemy.py and fixing bugs
+Saturday 28: 
