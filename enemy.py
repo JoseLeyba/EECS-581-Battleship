@@ -13,6 +13,7 @@ class Enemy:
         self.potential_targets = [] 
         
     def easy(self):
+        isSpecialShot = random.randint(1,10)
         while True:
             letter = random.choice('ABCDEFGHIJ')
             number = random.randint(1,10)
@@ -28,20 +29,24 @@ class Enemy:
                         letterIndex = i
                 downNumber = number + 1
                 upNumber = number - 1
-
-                rightLetter = letters[letterIndex + 1]
-                leftLetter = letters[letterIndex - 1]
+                rightLetter = None
+                leftLetter = None
+                if letterIndex + 1 < len(letters):
+                    rightLetter = letters[letterIndex + 1]
+                if letterIndex - 1 >= 0:
+                    leftLetter = letters[letterIndex - 1]
+                coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None
+                coordinatesRight = f"{rightLetter}{number}" if rightLetter else None
 
                 coordinatesDown = f"{letter}{downNumber}"
                 coordinatesUp = f"{letter}{upNumber}"
-                coordinatesLeft = f"{leftLetter}{number}"
-                coordinatesRight = f"{rightLetter}{number}"
+    
                 self.shoot(coordinatesDown)
                 self.shoot(coordinatesUp)
-                self.shoot(coordinatesLeft)
-                self.shoot(coordinatesRight)
-
-
+                if coordinatesLeft:
+                    self.shoot(coordinatesLeft)
+                if coordinatesRight:
+                    self.shoot(coordinatesRight)
     def medium(self):
         if self.potential_targets:
             move = self.potential_targets.pop(0)
