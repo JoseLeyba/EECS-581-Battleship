@@ -86,12 +86,12 @@ class Enemy:
             if isValid:
                 break  # Stop after a successful hit
         
-        def shoot(self, coordinates):
-            result = self.player_board.fireShotAI(coordinates)
-            if result is None:
-                return None
-            else:
-                return result
+    def shoot(self, coordinates):
+        result = self.player_board.fireShotAI(coordinates)
+        if result is None:
+            return None
+        else:
+            return result
         
     def placeShips(self):
         shipLength = self.numofships
