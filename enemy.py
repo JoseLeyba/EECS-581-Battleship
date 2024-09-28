@@ -12,8 +12,11 @@ class Enemy:
         #These are all needed for medium, possible moves is a list of all available moves, hits are places where it has hit before, and potential targets will store the adjacent cells after a hit as a queue
         self.possible_moves = [f"{row}{col}" for row in "ABCDEFGHIJ" for col in range(1, 11)]
         self.hits = [] 
-        self.potential_targets = [] 
-        
+        self.potential_targets = []
+        self.ships = self.placeShips()
+
+
+
     def easy(self):
         isSpecialShot = random.randint(1,10)
         while True:
@@ -48,6 +51,9 @@ class Enemy:
                 if coordinatesRight:
                     self.shoot(coordinatesRight)
                 self.ammo -= 1
+
+
+    
     def medium(self):
         while True:
             if self.potential_targets:
@@ -65,6 +71,8 @@ class Enemy:
                 self.processHit(move)
             break  # End turn after a valid shot
 
+
+    
     def processHit(self, coordinate):
         row, col = coordinate[0], int(coordinate[1:])
         adjacent = [
@@ -77,7 +85,10 @@ class Enemy:
         valid_adjacent = [coord for coord in adjacent if coord and coord in self.possible_moves]
         self.potential_targets.extend(valid_adjacent)
         self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
-        
+
+
+
+    
     def hard(self):
         coordinates_list = []
         for ship in self.player_board.ships:
@@ -87,14 +98,20 @@ class Enemy:
             isValid = self.shoot(coord)
             if isValid:
                 break  # Stop after a successful hit
-        
+
+
+
+    
     def shoot(self, coordinates):
         result = self.player_board.fireShotAI(coordinates)
         if result is None:
             return None
         else:
             return result
-        
+
+
+
+    
     def placeShips(self):
         shipLength = self.numofships
         directions = ["up", "down","left","right"]
@@ -146,5 +163,9 @@ class Enemy:
         print(self.AIboard.ship_board)
         print(self.AIboard.shot_board)
         pass
+
+
+
+    
     def gameOver(self):
         return self.AIboard.gameOver()
