@@ -1,1 +1,4 @@
-
+Alexandra Stratton: 3.5 hours
+30 minutes meeting with TA
+2 Hours of meeting togther mapping out the program.
+1 Hour coding Enemy.py, Battleship.py, and Board.py
