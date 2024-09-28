@@ -25,9 +25,7 @@ class Enemy:
         if isSpecialShot == 5:
             if self.ammo > 0:
                 letters = ['A','B','C','D','E','F','G','H','I','J']
-                for i in letters:
-                    if letters[i] == letter:
-                        letterIndex = i
+                letterIndex = letters.index(letter)
                 downNumber = number + 1
                 upNumber = number - 1
                 rightLetter = None
@@ -49,14 +47,21 @@ class Enemy:
                 if coordinatesRight:
                     self.shoot(coordinatesRight)
     def medium(self):
-        if self.potential_targets:
-            move = self.potential_targets.pop(0)
-        else:
-            move = random.choice(self.possible_moves)
-            self.possible_moves.remove(move)
-        isValid = self.shoot(move)
-        if isValid:
-            self.processHit(move)  
+        while True:
+            if self.potential_targets:
+                move = self.potential_targets.pop(0)
+            else:
+                move = random.choice(self.possible_moves)
+                self.possible_moves.remove(move)
+            result = self.shoot(move)
+            if result is None:
+                continue  # Invalid shot, try again
+            if move in self.possible_moves:
+                self.possible_moves.remove(move)
+            if result:
+                # Hit
+                self.processHit(move)
+            break  # End turn after a valid shot
 
     def processHit(self, coordinate):
         row, col = coordinate[0], int(coordinate[1:])
@@ -72,39 +77,22 @@ class Enemy:
         self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
         
     def hard(self):
-        pBoard = self.player_board.ship_board
-        x = 0
-        y = 0
-        i = 0
-        alphabet = "ABCDEFGHIJ"
-        letters = []
-        numbers = []
-
-        # for loop that reads the board for all ships
-        for row in pBoard:
-            for item in row:
-                x += 1
-                if item != 0:
-                    letters.append(alphabet[y])
-                    numbers.append(str(x))
-            y += 1
-            x = 0
+        coordinates_list = []
+        for ship in self.player_board.ships:
+            coordinates_list.extend(ship.coordinates)
         
-        while True:
-            coordinates = f"{letters[i]}{numbers[i]}"
-            isValid = self.shoot(coordinates)
-            i += 1
-            if isValid == True:
-                break
-    
-    def shoot(self,coordinates):
-        return self.AIboard.fireShotAI(coordinates)
-        if hitShip == None:
-            print("AI missed the shot")
-        elif not hitShip.isSunk():
-            print("AI hit a ship!")
-        else:
-        print("AI sunk a ship!")
+        for coord in coordinates_list:
+            isValid = self.shoot(coord)
+            if isValid:
+                break  # Stop after a successful hit
+        
+        def shoot(self, coordinates):
+            result = self.player_board.fireShotAI(coordinates)
+            if result is None:
+                return None
+            else:
+                return result
+        
     def placeShips(self):
         shipLength = self.numofships
         directions = ["up", "down","left","right"]
