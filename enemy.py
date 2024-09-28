@@ -1,3 +1,4 @@
+
 import random
 from board import Board
 from ship import Ship
@@ -46,6 +47,7 @@ class Enemy:
                     self.shoot(coordinatesLeft)
                 if coordinatesRight:
                     self.shoot(coordinatesRight)
+                self.ammo -= 1
     def medium(self):
         while True:
             if self.potential_targets:
