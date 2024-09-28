@@ -3,10 +3,11 @@ from board import Board
 from ship import Ship
 
 class Enemy:
-    def __init__(self,numofships):
+    def __init__(self,numofships, player_board):
         self.numofships = numofships
         self.AIboard = Board()
         self.ammo = 1
+        self.player_board = player_board
         #These are all needed for medium, possible moves is a list of all available moves, hits are places where it has hit before, and potential targets will store the adjacent cells after a hit as a queue
         self.possible_moves = [f"{row}{col}" for row in "ABCDEFGHIJ" for col in range(1, 11)]
         self.hits = [] 
@@ -71,8 +72,7 @@ class Enemy:
         self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
         
     def hard(self):
-        from battleship import Battleship
-        pBoard = Battleship.p1_board.ship_board        # gets the players board
+        pBoard = self.player_board
         x = 0
         y = 0
         i = 0
@@ -99,6 +99,12 @@ class Enemy:
     
     def shoot(self,coordinates):
         return self.AIboard.fireShotAI(coordinates)
+        if hitShip == None:
+            print("AI missed the shot")
+        elif not hitShip.isSunk():
+            print("AI hit a ship!")
+        else:
+        print("AI sunk a ship!")
     def placeShips(self):
         shipLength = self.numofships
         directions = ["up", "down","left","right"]
