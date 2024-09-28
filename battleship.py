@@ -106,7 +106,7 @@ class Battleship:
             self.populateBoard(self.p2_board)
             print("\n" * 100)  # Clear screen
         else:
-            self.AI = Enemy(self.num_ships)
+            self.AI = Enemy(self.num_ships, self.p1_board)
             self.AI.placeShips()
         current_player = 1  # Start with Player 1
         if self.choice == 1:
