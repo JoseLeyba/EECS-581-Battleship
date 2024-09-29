@@ -65,10 +65,10 @@ class Enemy:
             result = self.shoot(move)
             if result is None:
                 continue
-            if result = True:
+            if result == True:
                 self.processHit(move)
                 break
-            if result = False:
+            if result == False:
                 break
 
     
