@@ -132,12 +132,12 @@ class Enemy:
 
 
     def hard(self):
-        coordinates_list = []
-        for ship in self.player_board.ships:
-            coordinates_list.extend(ship.coordinates)
+        coordinates_list = []                                  # list that saves the coordinates of the player's ships 
+        for ship in self.player_board.ships:                   # loop that scans the player's ship coordinates
+            coordinates_list.extend(ship.coordinates)          # adds coordinates to coordinates_list
 
-        for coord in coordinates_list:
-            isValid = self.shoot(coord)
+        for coord in coordinates_list:                         # loop looks at every coordinate in list 
+            isValid = self.shoot(coord)                        # AI's shoot behavior that fires at coordinate
             if isValid:
                 break  # Stop after a successful hit
 
