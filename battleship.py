@@ -1,5 +1,10 @@
-
-
+'''
+Authors: Alexandra, Sophia, Eli, Jose, and Riley
+Other Authors: Group 4
+Date: 09/09/2024
+Last modified: 09/29/2024
+Purpose: Battleship Class
+'''
 from board import Board 
 from ship import Ship 
 from enemy import Enemy
