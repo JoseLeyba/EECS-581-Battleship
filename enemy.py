@@ -151,56 +151,105 @@ class Enemy:
 
 
 
-    def placeShips(self):
+    def placeShips(self): #Places the ships of the AI enemy
+        #Sets the ship length to the number of ships enemy has
         shipLength = self.numofships
+        #Possible directions for the ship to go
         directions = ["up", "down","left","right"]
+        #Possible letters for the ship to be placed
         letters = ['A','B','C','D','E','F','G','H','I','J']
 
+        #Loop that keeps going as long as the ship length is not 0
         while shipLength != 0:
+            #sets placed to false
             placed = False
+            #Creates a new ship with the current length
             ship = Ship(shipLength)
+            #Loop until a ship has been placed
             while not placed:
+                #randomly chooses a direction
                 direction = random.choice(directions)
+                #randomly chooses a letter in letters for the column
                 startCol = random.choice(letters)
+                #randomly chooses a number from 1 to 10 for the row
                 startRow = random.randint(1,10)
+                #length of the ship minus 1
                 length = shipLength - 1
 
+                #Checks if the direction is up
                 if direction == "up":
+                    #Calculates the end column and row for the ship
+                    #sets endCol to startCol
                     endCol = startCol
+                    #sets endRow to startRow - length
                     endRow = startRow - length
+                    #checks if endRow is less than 1
                     if endRow < 1:
+                        #if endRow is less then 1 it skips to the next iteration of the loop
                         continue
 
+                #Checks if the direction is down
                 elif direction == "down":
+                    #Calculates the end column and row for the ship
+                    #sets endCol to startCol
                     endCol = startCol
+                    #sets endRow to startRow + length
                     endRow = startRow + length
+                    #checks if endrow is greater than 10 
                     if endRow > 10:
+                        #if endRow is greater than 10 it skips to the next iteration of the loop
                         continue
 
+                #Checks if the direction is right
                 elif direction == "right":
+                    #finds the index of the starting column
                     letterIndex = letters.index(startCol)
+                    #checks if the ending column is out of bounds
                     if letterIndex + length >= len(letters):
+                        #if it is out of bounds it skips to the next iteration of the loop
                         continue
+                    #Calculates the end column and row for the ship
+                    #sets endCol to letters[letterIndex + length]
                     endCol = letters[letterIndex + length]
+                    #sets endRow to startRow
                     endRow = startRow
 
+                #Checks if the direction is left
                 elif direction == "left":
+                    #finds the index of the starting column
                     letterIndex = letters.index(startCol)
+                    #checks if the ending column is out of bounds
                     if letterIndex - length < 0:
+                        #if it is out of bounds it skips to the next iteration of the loop
                         continue
+                    #Calculates the end column and row for the ship
+                    #sets endCol to letters[letterIndex - length]
                     endCol = letters[letterIndex - length]
+                    #sets endRow to startRow
                     endRow = startRow
 
+                #sets the starting and ending coordinates for the ship
+                #starting coordinates
                 start = f"{startCol}{startRow}"
+                #ending coordinates
                 end = f"{endCol}{endRow}"
+                #trys to place the ship on the board
                 isValid = self.AIboard.placeShip(ship, start, end)
+                #checks if the ship was successfully placed
                 if isValid:
+                    #Add the ship to the board's list of ships
                     self.AIboard.ships.append(ship)
+                    #sets placed to True
                     placed = True
+            #subtracts 1 from shipLength
             shipLength -= 1
+        #prints the AIboards sihps
         print(self.AIboard.ships)
+        #prints the AI boards ship board
         print(self.AIboard.ship_board)
+        #prints the AI boards shot board
         print(self.AIboard.shot_board)
+        #passes
         pass
 
 
