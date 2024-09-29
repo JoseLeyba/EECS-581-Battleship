@@ -59,32 +59,32 @@ class Enemy:
             if self.potential_targets:
                 move = self.potential_targets.pop(0)
             else:
-                move = random.choice(self.possible_moves)
-                self.possible_moves.remove(move)
+                letter = random.choice('ABCDEFGHIJ')
+                number = random.randint(1,10)
+                move = f"{letter}{number}"
             result = self.shoot(move)
             if result is None:
-                continue  # Invalid shot, try again
-            if move in self.possible_moves:
-                self.possible_moves.remove(move)
-            if result:
-                # Hit
+                continue
+            if result = True:
                 self.processHit(move)
-            break  # End turn after a valid shot
-
+                break
+            if result = False:
+                break
 
     
     def processHit(self, coordinate):
-        row, col = coordinate[0], int(coordinate[1:])
-        adjacent = [
-            f"{chr(ord(row) - 1)}{col}" if row > 'A' else None, 
-            f"{chr(ord(row) + 1)}{col}" if row < 'J' else None,  
-            f"{row}{col - 1}" if col > 1 else None,              
-            f"{row}{col + 1}" if col < 10 else None             
-        ]
+        row, col = coordinate[0], int(coordinate[1])
+        if row > 'A':
+            self.potential_targets.append(f"{chr(ord(row) - 1)}{col}")
+        if row < 'J':
+            self.potential_targets.append(f"{chr(ord(row) + 1)}{col}")
+        if col > 1:
+            self.potential_targets.append(f"{row}{col - 1}")
+        if col < 10:
+            self.potential_targets.append(f"{row}{col + 1}")          
 
-        valid_adjacent = [coord for coord in adjacent if coord and coord in self.possible_moves]
-        self.potential_targets.extend(valid_adjacent)
-        self.possible_moves = [move for move in self.possible_moves if move not in valid_adjacent] 
+        
+
 
 
 
