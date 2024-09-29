@@ -1,3 +1,10 @@
+'''
+Authors: Alexandra, Sophia, Eli, Jose, and Riley
+Other Authors: Group 4
+Date: 09/09/2024
+Last modified: 09/29/2024
+Purpose: Board Class
+'''
 ''' This class represents the board of a battleship player '''
 class Board:
     def __init__(self):
