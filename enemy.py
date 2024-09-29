@@ -1,4 +1,9 @@
-
+'''
+Authors: Alexandra, Sophia, Eli, Jose, and Riley
+Date: 09/22/2024
+Last modified: 09/29/2024
+Purpose: AI class
+'''
 import random
 from board import Board
 from ship import Ship
