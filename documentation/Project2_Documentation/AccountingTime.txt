@@ -7,6 +7,16 @@ Tuesday 24th - 40 minutes - Fixing issues throughout code
 Saturday 28th - 1 hr - meeting with team
 Sunday 29th - 30 minutes - Conmmenting code and fixing bugs
 
+Sophia Medallada
+Monday 15: 15 minutes - GTA meeting
+Sunday 22: 1 hour - Group meeting planning
+Sunday 22: 1 hour - UML diagram special shot
+Monday 23: 15 minutes - GTA meeting
+Saturday 28: 1 hour - meeting with team
+Saturday 28: 30 minutes - testing levels and fixing bugs
+Sunday 28: 1 hour - commenting battleship.py
+
+
 Eli Gabriel
 Monday 16: 15 min -- GTA Meeting
 Sunday 22: 1 hr -- Group Planning Meeting
