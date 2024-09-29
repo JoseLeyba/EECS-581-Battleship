@@ -18,7 +18,7 @@ Riley Sirimongkhon-Dyck
 2 Hours of meeting togther mapping out the program.
 1 Hour coding Enemy.py and Board.py
 
-Sophia Medalalda: 
+Sophia Medalalda: : 3 hours
 30 minutes with TA
 2 hour meeting together mapping out
-1 hour running code 
+30 minutes testing code 
