@@ -41,7 +41,6 @@ class Battleship:
                     print("Invalid placement. Please try again.")
 
     def fireShot(self, board, player):
-        # Set player-specific variables
         if player == "player1":
             ammo = self.p1_ammo
         elif player == "player2":
@@ -50,7 +49,6 @@ class Battleship:
             print("Invalid player")
             return
 
-        # Ensure the player has ammo
         if ammo <= 0:
             while True:
                 # asks the player for a coordinate to fire a shot
@@ -67,26 +65,20 @@ class Battleship:
                     break
             
         elif ammo > 0:   
-            # Main loop to prompt the player for coordinates until a valid shot is fired
             while True:
                 print()
 
-                # Ask if the player wants to use a special shot
                 special = input("Enter 1 if you want to use a special shot, otherwise press Enter: ")
 
-                # Ask for the coordinates
                 coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
                 if len(coordinate) < 2 or not coordinate[0].isalpha() or not coordinate[1:].isdigit():
                     print("Invalid input. Please enter a valid coordinate (e.g., A1).")
                     continue
-                # Extract the letter (column) and number (row) from the coordinate
                 letter = coordinate[0]  # Assuming the first part is a letter
                 number = int(coordinate[1:])  # Assuming the second part is the number
 
-                # Attempt to fire the shot at the given coordinate
                 if board.fireShot(coordinate):
                     if special == "1" and ammo > 0:
-                        # Handle the special shot if ammo is available
                         letters = ['A','B','C','D','E','F','G','H','I','J']
                         letterIndex = letters.index(letter)
                         downNumber = number + 1
@@ -94,7 +86,6 @@ class Battleship:
                         rightLetter = None
                         leftLetter = None
                         
-                        # Calculate adjacent coordinates
                         if letterIndex + 1 < len(letters):
                             rightLetter = letters[letterIndex + 1]
                         if letterIndex - 1 >= 0:
@@ -105,7 +96,6 @@ class Battleship:
                         coordinatesDown = f"{letter}{downNumber}"
                         coordinatesUp = f"{letter}{upNumber}"
 
-                        # Fire shots at adjacent coordinates
                         board.fireShot(coordinatesDown)
                         board.fireShot(coordinatesUp)
                         if coordinatesLeft:
@@ -113,7 +103,6 @@ class Battleship:
                         if coordinatesRight:
                             board.fireShot(coordinatesRight)
 
-                        # Deduct ammo for special shot
                         ammo -= 1
                         print("Special shot fired!")
                     else:
@@ -124,14 +113,14 @@ class Battleship:
                     board.showBoardForOpponent()
                     print()
                     
-                    # Deduct ammo for the player after a successful shot
                     if player == "player1":
                         self.p1_ammo = ammo
                     else:
                         self.p2_ammo = ammo
                     
-                        break
+                    break
                 else:
+                
                     print("Invalid shot or already fired at this coordinate. Try again")
 
     def playGame(self):  # handles turn taking and prompting users for input
