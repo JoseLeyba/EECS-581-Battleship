@@ -24,7 +24,7 @@ Monday 23: 15 min -- GTA Meeting
 Monday 23: 1 hr -- Coding Enemy.py and Battleship.py
 Thursday 26: 1 hr -- Coding Enemy.py and fixing bugs
 Saturday 28: 1 hr -- meeting with team
-Sunday 29th 30 min -- commenting enemy and documenting
+Sunday 29th 30 min -- commenting enemy.py and documenting
 
 Jose Leyba
 Monday 16th: 15 minutes - GTA Meeting
