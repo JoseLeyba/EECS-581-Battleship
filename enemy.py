@@ -243,14 +243,6 @@ class Enemy:
                     placed = True
             #subtracts 1 from shipLength
             shipLength -= 1
-        #prints the AIboards sihps
-        print(self.AIboard.ships)
-        #prints the AI boards ship board
-        print(self.AIboard.ship_board)
-        #prints the AI boards shot board
-        print(self.AIboard.shot_board)
-        #passes
-        pass
 
 
 
