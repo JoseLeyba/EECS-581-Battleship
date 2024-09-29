@@ -40,8 +40,7 @@ class Battleship:
                     # if unsuccessful, ask for new coordinates
                     print("Invalid placement. Please try again.")
 
-    def fireShot(self, board, player):
-        # Set player-specific variables
+     def fireShot(self, board, player):
         if player == "player1":
             ammo = self.p1_ammo
         elif player == "player2":
@@ -50,78 +49,79 @@ class Battleship:
             print("Invalid player")
             return
 
-        # Ensure the player has ammo
-        if ammo <= 0: #if the player has no amo left, it'll stop the action
-            print("No ammo left!")
-            return
-
-        # Main loop to prompt the player for coordinates until a valid shot is fired
-        while True:
-            print()
-
-            # Ask if the player wants to use a special shot
-            special = input("Enter 1 if you want to use a special shot, otherwise press Enter: ")
-
-            # Ask for the coordinates
-            coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
-            if len(coordinate) < 2 or not coordinate[0].isalpha() or not coordinate[1:].isdigit():
-                print("Invalid input. Please enter a valid coordinate (e.g., A1).")
-                continue
-            # Extract the letter (column) and number (row) from the coordinate
-            letter = coordinate[0]  # Assuming the first part is a letter
-            number = int(coordinate[1:])  # Assuming the second part is the number
-
-            # Attempt to fire the shot at the given coordinate
-            if board.fireShot(coordinate):
-                if special == "1" and ammo > 0:
-                    # Handle the special shot if ammo is available
-                    letters = ['A','B','C','D','E','F','G','H','I','J'] #columns
-                    letterIndex = letters.index(letter) #finds the index of letter
-                    downNumber = number + 1 #row down the current row
-                    upNumber = number - 1 #row up the current row
-                    rightLetter = None #placeholder for right letter
-                    leftLetter = None #placeholder for left letter
-                    
-                    # Calculate adjacent coordinates
-                    if letterIndex + 1 < len(letters):
-                        rightLetter = letters[letterIndex + 1] #gets the right column letter
-                    if letterIndex - 1 >= 0:
-                        leftLetter = letters[letterIndex - 1] #gets the left column letter
-                    
-                    #adjacent coordinates for the special shot
-                    coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None
-                    coordinatesRight = f"{rightLetter}{number}" if rightLetter else None
-                    coordinatesDown = f"{letter}{downNumber}"
-                    coordinatesUp = f"{letter}{upNumber}"
-
-                    # Fire shots at adjacent coordinates
-                    board.fireShot(coordinatesDown)
-                    board.fireShot(coordinatesUp)
-                    if coordinatesLeft:
-                        board.fireShot(coordinatesLeft)
-                    if coordinatesRight:
-                        board.fireShot(coordinatesRight)
-
-                    # Deduct ammo for special shot
-                    ammo -= 1
-                    print("Special shot fired!")
-                else:
-                    print("Regular shot fired!")
-
-                # Show the updated board
+        if ammo <= 0:
+            while True:
+                # asks the player for a coordinate to fire a shot
                 print()
-                board.showBoardForOpponent() #shows the board with hits and misses
-                print() #spacing
-                
-                # Deduct ammo for the player after a successful shot
-                if player == "player1":
-                    self.p1_ammo = ammo #updates player 1 ammo
+                coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
+
+                # fire the shot and check if it's successful
+                if board.fireShot(coordinate):
+                    # show upadted board after the successful shot
+                    board.showBoard()
+                    print()
+                    board.showBoardForOpponent()
+                    print()
+                    break
+            
+        elif ammo > 0:   
+            while True:
+                print()
+
+                special = input("Enter 1 if you want to use a special shot, otherwise press Enter: ")
+
+                coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
+                if len(coordinate) < 2 or not coordinate[0].isalpha() or not coordinate[1:].isdigit():
+                    print("Invalid input. Please enter a valid coordinate (e.g., A1).")
+                    continue
+                letter = coordinate[0]  # Assuming the first part is a letter
+                number = int(coordinate[1:])  # Assuming the second part is the number
+
+                if board.fireShot(coordinate):
+                    if special == "1" and ammo > 0:
+                        letters = ['A','B','C','D','E','F','G','H','I','J']
+                        letterIndex = letters.index(letter)
+                        downNumber = number + 1
+                        upNumber = number - 1
+                        rightLetter = None
+                        leftLetter = None
+                        
+                        if letterIndex + 1 < len(letters):
+                            rightLetter = letters[letterIndex + 1]
+                        if letterIndex - 1 >= 0:
+                            leftLetter = letters[letterIndex - 1]
+                        
+                        coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None
+                        coordinatesRight = f"{rightLetter}{number}" if rightLetter else None
+                        coordinatesDown = f"{letter}{downNumber}"
+                        coordinatesUp = f"{letter}{upNumber}"
+
+                        board.fireShot(coordinatesDown)
+                        board.fireShot(coordinatesUp)
+                        if coordinatesLeft:
+                            board.fireShot(coordinatesLeft)
+                        if coordinatesRight:
+                            board.fireShot(coordinatesRight)
+
+                        ammo -= 1
+                        print("Special shot fired!")
+                    else:
+                        print("Regular shot fired!")
+
+                    # Show the updated board
+                    print()
+                    board.showBoardForOpponent()
+                    print()
+                    
+                    if player == "player1":
+                        self.p1_ammo = ammo
+                    else:
+                        self.p2_ammo = ammo
+                    
+                    break
                 else:
-                    self.p2_ammo = ammo #updates player 2 or AI ammo
-                
-                break
-            else:
-                print("Invalid shot or already fired at this coordinate. Try again") #if the shot was invalid
+                    print("Invalid shot or already fired at this coordinate. Try again")
+
 
     def playGame(self):  # handles turn taking and prompting users for input
         #prints the welcome message and options for the user to choose
