@@ -1,131 +1,102 @@
 Additions and edits done to Battleship Project
 
 Board Class:
-  Methods:
-    placeShip(self, ship, start, end):
-      Example start and end coordinates: ‘A1’, ‘A3’
-      validate these coordinates using validatePlacement()
-        Return false if invalid
-      Needs to translate these coordinates and place a ship on ship_board
-      call addCoordinates(coordinates) method of ship object after validation
-      Return true if success
-
-    validateAndGetPlacement(self, ship, start, end):
-      check several things:
-        Valid start and end positions given (not out of bounds, ex: K11)
-        Is a straight line either up or down
-        Matches ship.length
-        No ship in any of the positions on self.ship_board
-      Return list of coordinates if valid, false otherwise
-
-    fireShot(self, coordinate):
-      Example coordinate: ‘A1’
-      Validate coordinate and check if a shot has been fired on that spot already
-        Return false if invalid or already shot
-      If hit, a few things happen:
-        Update coordinate on shot board to X
-        Ships are represented by their length in ship_board, so for example if you hit the number 2 on ship_board, you can access that ship object in self.ships[2-1].
-        Add hit to ship with .addHit(coordinate) 
-        check if ship is sunk with .isSunk()
-          If ship is sunk, update its spots on the shot_board to #’s instead of X’s
-        Print hit/sunk messages
-      If miss:
-        Update coordinate on shot board to O
-        Print miss message
-      Return true 
-
-    gameOver(self):
-      Checks if every ship in the self.ship has been sunk, return true if so.
-    showBoard(self):
-      Prints the board view for the player
-      Combines the ship_board and shot_board
-    showBoardForOpponent(self):
-      Shows the player’s board to an opponent; only prints the hit_board 
-
+Methods:
+	fireShotAI(self,coordinate):
+		Checks if the coordinate it wants to shoot at is out of bounds
+		Checks if the coordinate it wants to shoot at has already been shot at
+		If it hasn’t it updates hitShip and calls addHit
+		Updates the shot_board with a X or O depending on if a ship was it, and it the ship is sunk a #
+	
 
 Battleship Class:
 	Imports:
-    From board import Board - 
-    From ship import Ship - 
-    From enemy import Enemy - 
-
+		From board import Board - Gets the Board class from board.py
+		From ship import Ship - Gets Ship from ship.py
+		From enemy import Enemy - Gets enemy from Enemy.py
+	
 	Member Variables:
-    p1_board - an instance of the board class that represents player 1
-    p2_board - an instance of the board class that represents player 2
-    p1_name, p2_name - names of the players
-    num_ships - the number of ships each player will have
-    AI - 
-    choice - This keeps track if the user wants to play with another person or with the computer
-    p1_ammo - a variable used to keep track of the amount of special shots player 1 has left
-    p2_ammo - a variable used to keep track of the amount of special shots player 2 has left
-
+		p1_board - an instance of the board class that represents player 1
+		p2_board - an instance of the board class that represents player 2
+		p1_name, p2_name - names of the players
+		num_ships - the number of ships each player will have
+		AI - A variable made to hold the enemy class when a player wants to play by themselves
+		choice - This keeps track if the user wants to play with another person or with the computer
+		p1_ammo - a variable used to keep track of the amount of special shots player 1 has left
+		p2_ammo - a variable used to keep track of the amount of special shots player 2 has left
+	
 	Methods:
-
-    fireShot(self, board, player):
-      Prompts a the user if they want to use their special shot, then asks the user for the coordinates they want to shoot at then call board.fireShot(coordinate)
-        If board.fireShot() returns false, then the coordinates were invalid or have already been shot at, so prompt the user for another coordinate and try again until successful 
-        call board.showBoardForOpponent() after success to show shot
-      
-     Prompts a user for coordinate inputs 
-
-    playGame(self):
-      Essentially the main function
-      initialize number of ships and player names, handle turns, and call the populateBoard and fireShot methods
-      After firing a shot at a player, call .gameOver() on p1_board or p2_board to test if that player was beaten; if so end the game a print win message
-      include a screen between players turns when handing off computer so they can’t see each other’s boards
+	fireShot(self, board, player):
+		Prompts a the user if they want to use their special shot, then asks the user for the coordinates they want to shoot at then call board.fireShot(coordinate)
+		If the user wants to use the special shot it checks if the player has any ammo to use the special shot, it calls board.fireShot(coordinate) shooting the coordinate and the left, up, down, right of the coordinate and subtracts 1 from ammo
+		If board.fireShot() returns false, then the coordinates were invalid or have already been shot at, so prompt the user for another coordinate and try again until successful 
+		call board.showBoardForOpponent() after success to show shot
+	      
+		Prompts a user for coordinate inputs 
+	
+	
+	playGame(self):
+		Essentially the main function
+		initialize number of ships and player names, handle turns, and call the populateBoard, fireShot methods, and determines if the player is playing by themselves or with another player
+		If the player is playing against the AI it asks the player to choose a difficulty
+		After firing a shot at a player, call .gameOver() on p1_board, p2_board, or AI to test if that player was beaten; if so end the game a print win message
+		include a screen between players turns when handing off the computer so they can’t see each other’s boards. When playing against the AI it only shows your board and where the AI shot
 
 
 Enemy class:
-   Imports:
-import random - imports random for easy()
-from board import Board - imports board so that the methods can use it 
-from ship import Ship - imports ship class so the methods can use it
-
-   Member Variables: 
-numofships – number of ships the AI has 
-AIboard – instance of the board class that represents the AI’s
-ammo – amount of special shot the AI has
-player_board – holds player’s board for reference
-possible_moves – possible moves is a list of all available moves, hits are places where it has hit before
-hits – list that keeps track of the coordinates of the AI’s hits
-potential_targets – will store the adjacent cells after a hit as a queue
-
-   Methods: 
-easy(self): 
-   AI’s easy difficulty behavior
-   AI uses random.choice and random.randint to determine where to shoot
-   Only in easy difficulty does the AI have access to the same special shot as the player
-   If the ammo for the special shot == 0 the AI cannot fire it
-   The behavior will continue until the player or AI wins
-
-medium(self): 
-   AI’s medium difficulty behavior
-   AI will begin by firing randomly throughout the board until it lands a hit
-   When the AI does hit a ship it will use its next few turns firing in the surrounding space to see if it can land more hits
-   The behavior will continue until the player or AI wins
-
-
-processHit(self, coordinate): 
-   Used by enemy.medium() to help it to shoot in the surrounding spaces if it landed a hit
-   Function first stores the shot coordinate in parts
-   Gets the numerical value using the coordinate map dictionary
-   If the board at that space is an X or a # then it was a hit
-   When it does see a hit it will check on all adjacent spots if it is a valid target or not then append it to the list of the potential targets if it is
-   After that, if the shot sunk a ship then we reset the lit to fire randomly again
-
-
-hard(self): 
-   AI’s hard difficulty behavior
-   saves coordinates of players ships in a list
-   fires at each coordinate in the list until the game is over
-   
-shoot(self, coordinates): 
-   AI’s shooting behavior
-   Function will call fireShotAI() in player’s board to fire at given coordinate
-   Function will also return boolean variable depending if the location is valid
-
-placeShips(self):
-
-
-gameOver(self): 
-  AI’s game over method which calls gameOver() in AIboard
+	Imports:
+		import random - imports random for easy()
+		from board import Board - imports board so that the methods can use it 
+		from ship import Ship - imports ship class so the methods can use it
+	
+	Member Variables: 
+		numofships – number of ships the AI has 
+		AIboard – instance of the board class that represents the AI’s
+		ammo – amount of special shot the AI has
+		player_board – holds player’s board for reference
+		possible_moves – possible moves is a list of all available moves, hits are places where it has hit before
+		hits – list that keeps track of the coordinates of the AI’s hits
+		potential_targets – will store the adjacent cells after a hit as a queue
+	
+	Methods: 
+	easy(self): 
+		AI’s easy difficulty behavior
+		AI uses random.choice and random.randint to determine where to shoot
+		Only in easy difficulty does the AI have access to the same special shot as the player
+		If the ammo for the special shot == 0 the AI cannot fire it
+		The behavior will continue until the player or AI wins
+	
+	medium(self): 
+		AI’s medium difficulty behavior
+		AI will begin by firing randomly throughout the board until it lands a hit
+		When the AI does hit a ship it will use its next few turns firing in the surrounding space to see if it can land more hits
+		The behavior will continue until the player or AI wins
+	
+	
+	processHit(self, coordinate): 
+		Used by enemy.medium() to help it to shoot in the surrounding spaces if it landed a hit
+		Function first stores the shot coordinate in parts
+		Gets the numerical value using the coordinate map dictionary
+		If the board at that space is an X or a # then it was a hit
+		When it does see a hit it will check on all adjacent spots if it is a valid target or not then append it to the list of the potential targets if it is
+		After that, if the shot sunk a ship then we reset the lit to fire randomly again
+	
+	
+	hard(self): 
+		AI’s hard difficulty behavior
+		saves coordinates of players ships in a list
+		fires at each coordinate in the list until the game is over
+	   
+	shoot(self, coordinates): 
+		AI’s shooting behavior
+		Function will call fireShotAI() in player’s board to fire at given coordinate
+		Function will also return boolean variable depending if the location is valid
+	
+	placeShips(self):
+		Creates a ship using Ship(shipLength)
+		Picks a random column from letters and picks a random number between 1 to 10, that will be its starting point. Direction is randomly chosen from directions, this determines what direction the ship will go when being placed
+		isValid checks if the ship is both in the bounds of the board and not overlapping with another ship.
+		If the ship is in the bounds of the board and not overlapping with another ship it is added to the AI’s board
+	
+	gameOver(self): 
+		AI’s game over method which calls gameOver() in AIboard
