@@ -39,8 +39,8 @@ class Battleship:
                 else:
                     # if unsuccessful, ask for new coordinates
                     print("Invalid placement. Please try again.")
-
-     def fireShot(self, board, player):
+                    
+    def fireShot(self, board, player):
         if player == "player1": # Set player-specific variables
             ammo = self.p1_ammo
         elif player == "player2":
