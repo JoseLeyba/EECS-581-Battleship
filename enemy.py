@@ -29,39 +29,39 @@ class Enemy:
 
 
     def easy(self):
-        isSpecialShot = random.randint(1,10)
+        isSpecialShot = random.randint(1,10)                                            #Randomly determine is the shot will be a special shot
         while True:
-            letter = random.choice('ABCDEFGHIJ')
-            number = random.randint(1,10)
-            coordinates = f"{letter}{number}"
-            isValid = self.shoot(coordinates)
-            if isValid == True:
+            letter = random.choice('ABCDEFGHIJ')                                        #Randomly selects a letter (A-J) for the coordinates
+            number = random.randint(1,10)                                               #Randomly selects a number (1-10) for the coordinates
+            coordinates = f"{letter}{number}"                                           #Combines the random letter and number to make the coordinate
+            isValid = self.shoot(coordinates)                                           #Attempts to shoot at the player's board
+            if isValid == True:                                                         #Leaves the while loop if the attempted shot was valid
                 break
-        if isSpecialShot == 5:
-            if self.ammo > 0:
-                letters = ['A','B','C','D','E','F','G','H','I','J']
-                letterIndex = letters.index(letter)
-                downNumber = number + 1
-                upNumber = number - 1
-                rightLetter = None
-                leftLetter = None
-                if letterIndex + 1 < len(letters):
-                    rightLetter = letters[letterIndex + 1]
-                if letterIndex - 1 >= 0:
-                    leftLetter = letters[letterIndex - 1]
-                coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None
-                coordinatesRight = f"{rightLetter}{number}" if rightLetter else None
+        if isSpecialShot == 5:                                                          #It'll be a special shot if the randomly selected number is 5
+            if self.ammo > 0:                                                           #Checks if there is ammo for a special shot
+                letters = ['A','B','C','D','E','F','G','H','I','J']                     #List of the possible letters
+                letterIndex = letters.index(letter)                                     #Gets the index of the letter for the attempted shot 
+                downNumber = number + 1                                                 #Gets the number for shot below 
+                upNumber = number - 1                                                   #Gets the number for the shot above
+                rightLetter = None                                                      #Sets the shot to the right as None initially
+                leftLetter = None                                                       #Sets the shot to the left as None initially
+                if letterIndex + 1 < len(letters):                                      #Checks if the right shot is in the bounds 
+                    rightLetter = letters[letterIndex + 1]                              #If it is it gets the letter for the shot to the right
+                if letterIndex - 1 >= 0:                                                #Checks if the lefts shot is in the bounds
+                    leftLetter = letters[letterIndex - 1]                               #If it is it getsthe letter for the shot to the left
+                coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None       #Combines to get a coordinate for the left if the leftLetter is not None
+                coordinatesRight = f"{rightLetter}{number}" if rightLetter else None    #Combines to get a coordinate for the right if the rightLetter is not None
 
-                coordinatesDown = f"{letter}{downNumber}"
-                coordinatesUp = f"{letter}{upNumber}"
+                coordinatesDown = f"{letter}{downNumber}"                               #Combines to get the coordinate for the down
+                coordinatesUp = f"{letter}{upNumber}"                                   #Combines to get the coordinate for the up
 
-                self.shoot(coordinatesDown)
-                self.shoot(coordinatesUp)
-                if coordinatesLeft:
+                self.shoot(coordinatesDown)                                             #Attempts to shot below
+                self.shoot(coordinatesUp)                                               #Attempts to shot above
+                if coordinatesLeft:                                                     #If there is a left coordinate then it'll attempt to shoot
                     self.shoot(coordinatesLeft)
-                if coordinatesRight:
+                if coordinatesRight:                                                    #If there is a right coordinate it'll attempt to shoot
                     self.shoot(coordinatesRight)
-                self.ammo -= 1
+                self.ammo -= 1                                                          #Subtracts ammo by 1
 
 
 
