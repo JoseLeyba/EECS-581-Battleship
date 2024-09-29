@@ -145,8 +145,8 @@ class Enemy:
 
 
     def shoot(self, coordinates):
-        result = self.player_board.fireShotAI(coordinates)
-        return result
+        result = self.player_board.fireShotAI(coordinates)      #Call the fireShotAI method on the player's board to fire at the specified coordinate
+        return result                                           #This function will return True or False depending on if the location is valid
 
 
 
