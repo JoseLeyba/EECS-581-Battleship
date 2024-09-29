@@ -76,6 +76,11 @@ Battleship Class:
 
 
 Enemy class:
+   Imports:
+import random - imports random for easy()
+from board import Board - imports board so that the methods can use it 
+from ship import Ship - imports ship class so the methods can use it
+
    Member Variables: 
 numofships – number of ships the AI has 
 AIboard – instance of the board class that represents the AI’s
