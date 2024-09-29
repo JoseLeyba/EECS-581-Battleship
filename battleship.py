@@ -41,19 +41,19 @@ class Battleship:
                     print("Invalid placement. Please try again.")
 
      def fireShot(self, board, player):
-        if player == "player1":
+        if player == "player1": # Set player-specific variables
             ammo = self.p1_ammo
         elif player == "player2":
             ammo = self.p2_ammo
         else:
             print("Invalid player")
             return
-
-        if ammo <= 0:
+        # Ensure the player has ammo
+        if ammo <= 0: #if the player has no amo left, it'll stop the action
             while True:
                 # asks the player for a coordinate to fire a shot
                 print()
-                coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper()
+                coordinate = input(f"Enter coordinates to fire (e.g., A1): ").upper() # Ask for the coordinates
 
                 # fire the shot and check if it's successful
                 if board.fireShot(coordinate):
@@ -78,31 +78,35 @@ class Battleship:
                 number = int(coordinate[1:])  # Assuming the second part is the number
 
                 if board.fireShot(coordinate):
-                    if special == "1" and ammo > 0:
-                        letters = ['A','B','C','D','E','F','G','H','I','J']
-                        letterIndex = letters.index(letter)
-                        downNumber = number + 1
-                        upNumber = number - 1
-                        rightLetter = None
-                        leftLetter = None
-                        
+                    if special == "1" and ammo > 0: # Handle the special shot if ammo is available
+                        letters = ['A','B','C','D','E','F','G','H','I','J'] #columns
+                        letterIndex = letters.index(letter) #finds the index of letter
+                        downNumber = number + 1 #row down the current row
+                        upNumber = number - 1 #row up the current row
+                        rightLetter = None  #placeholder for right letter
+                        leftLetter = None #placeholder for left letter
+
+                        # Calculate adjacent coordinates
                         if letterIndex + 1 < len(letters):
-                            rightLetter = letters[letterIndex + 1]
+                            rightLetter = letters[letterIndex + 1  #gets the right column letter
                         if letterIndex - 1 >= 0:
-                            leftLetter = letters[letterIndex - 1]
-                        
+                            leftLetter = letters[letterIndex - 1]  #gets the left column letter
+                            
+                        #adjacent coordinates for the special shot
                         coordinatesLeft = f"{leftLetter}{number}" if leftLetter else None
                         coordinatesRight = f"{rightLetter}{number}" if rightLetter else None
                         coordinatesDown = f"{letter}{downNumber}"
                         coordinatesUp = f"{letter}{upNumber}"
 
+                        # Fire shots at adjacent coordinates
                         board.fireShot(coordinatesDown)
                         board.fireShot(coordinatesUp)
                         if coordinatesLeft:
                             board.fireShot(coordinatesLeft)
                         if coordinatesRight:
                             board.fireShot(coordinatesRight)
-
+                            
+                        # Deduct ammo for special shot
                         ammo -= 1
                         print("Special shot fired!")
                     else:
@@ -110,16 +114,17 @@ class Battleship:
 
                     # Show the updated board
                     print()
-                    board.showBoardForOpponent()
+                    board.showBoardForOpponent() #shows the board with hits and misses
                     print()
-                    
+
+                    # Deduct ammo for the player after a successful shot
                     if player == "player1":
-                        self.p1_ammo = ammo
+                        self.p1_ammo = ammo #updates player 1 ammo
                     else:
-                        self.p2_ammo = ammo
+                        self.p2_ammo = ammo #updates player 2 or AI ammo
                     
                     break
-                else:
+                else: #if the shot was invalid
                     print("Invalid shot or already fired at this coordinate. Try again")
 
 
