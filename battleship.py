@@ -88,7 +88,7 @@ class Battleship:
 
                         # Calculate adjacent coordinates
                         if letterIndex + 1 < len(letters):
-                            rightLetter = letters[letterIndex + 1  #gets the right column letter
+                            rightLetter = letters[letterIndex + 1]  #gets the right column letter
                         if letterIndex - 1 >= 0:
                             leftLetter = letters[letterIndex - 1]  #gets the left column letter
                             
