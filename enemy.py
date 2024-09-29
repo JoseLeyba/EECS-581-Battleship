@@ -9,15 +9,21 @@ from board import Board
 from ship import Ship
 
 class Enemy:
+    #When initializing we store all the following stuff to be used in their respective difficulty
     def __init__(self,numofships, player_board):
         self.numofships = numofships
+        #Creates an AI board
         self.AIboard = Board()
+        #For the AI special shot for easy
         self.ammo = 1
+        #To use on medium to check for hits and hard to know where to shoot at
         self.player_board = player_board
         #These are all needed for medium, possible moves is a list of all available moves, hits are places where it has hit before, and potential targets will store the adjacent cells after a hit as a queue
         self.possible_moves = [f"{row}{col}" for row in "ABCDEFGHIJ" for col in range(1, 11)]
         self.hits = []
+        #Used on medium to store adjacent spots after a hit
         self.potential_targets = []
+        #Places the ships immediately when initializing
         self.ships = self.placeShips()
 
 
@@ -59,27 +65,37 @@ class Enemy:
 
 
 
+    #When the difficulty is medium, shoots randomly until hitting a ship and then it hits in adjacent spaces until a ship has been sunk
     def medium(self):
+        #Loops until a successful shoot has been done
         while True:
+            #If you hit a ship before and haven't sunk it then shooting on your adjacent spot is your next move
             if self.potential_targets:
                 move = self.potential_targets.pop(0)
+            #If not, then try shooting on a random position
             else:
                 letter = random.choice('ABCDEFGHIJ')
                 number = random.randint(1,10)
                 move = f"{letter}{number}"
             result = self.shoot(move)
+            #If shot was valid go to processHit
             if result == True:
                 self.processHit(move)
                 break
+            #If not continue looping
             if result == False:
                 continue
 
-
+    #This is for the medium difficulty to see if he hit a ship or not
     def processHit(self, coordinate):
+        #First store the shot coordinate in parts
         letter, col = coordinate[0], coordinate[1:]
         col = int(col) 
+        #Gets the numerical value using the coordinate map dictionary
         xy = self.player_board.coordinate_map[coordinate]
+        #If the board at that space is an X or a # then it was a hit
         if self.player_board.shot_board[xy[0]][xy[1]] == "X" or self.player_board.shot_board[xy[0]][xy[1]] == "#":
+            #Will check on all adjacent spots if it is a valid target or not then append it to the list of the potential targets if it is
             if letter > 'A':
                 adjacent_move = f"{chr(ord(letter) - 1)}{col}"
                 if self.isValidTarget(adjacent_move):
@@ -96,20 +112,21 @@ class Enemy:
                 adjacent_move = f"{letter}{col + 1}"
                 if self.isValidTarget(adjacent_move):
                     self.potential_targets.append(adjacent_move)
-
+        #After that, if the hit sunk a ship then we reset the list to shoot randomly again
         if self.player_board.shot_board[xy[0]][xy[1]] == "#":
             self.potential_targets = []
 
 
-
+    #Checks if the target is valid
     def isValidTarget(self, move):
-        """
-        Check if the move is a valid target (i.e., it hasn't been shot yet).
-        """
+        #Gets the numerical value using the coordinate map dictionary
         xy = self.player_board.coordinate_map[move]
-        if self.player_board.shot_board[xy[0]][xy[1]] is None:  # Not already shot
+        #Checks for the shot board if it hasn't been shot before, if it hasn't then return true
+        if self.player_board.shot_board[xy[0]][xy[1]] is None:
             return True
+        #Else return false
         return False
+
 
 
 
