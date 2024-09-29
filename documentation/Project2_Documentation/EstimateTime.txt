@@ -13,7 +13,7 @@ Jose Leyba: 4 Hours and 20 minutes
 2 Hour of working together 
 2 Hours working on my own on medium and error checking
 
-Riley Sirimongkhon-Dyck
+Riley Sirimongkhon-Dyck: 3.5 hours
 30 minutes meeting with TA
 2 Hours of meeting togther mapping out the program.
 1 Hour coding Enemy.py and Board.py
