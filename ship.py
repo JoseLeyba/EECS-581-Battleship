@@ -1,3 +1,10 @@
+'''
+Authors: Alexandra, Sophia, Eli, Jose, and Riley
+Other Authors: Group 4
+Date: 09/09/2024
+Last modified: 09/15/2024
+Purpose: Ship Class
+'''
 ''' This class represents a ship placed on a battleship board '''
 class Ship:
     def __init__(self, length):
